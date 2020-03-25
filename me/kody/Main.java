@@ -42,7 +42,7 @@ public class Main {
         String line = get(type, id.substring(0, 2).equalsIgnoreCase("AV") ? id.replace(id.substring(0, 2), "") : id);
         String av = line.substring(line.lastIndexOf("\"aid\":"), line.lastIndexOf(",\"bvid\"")).replace("\"aid\":", "");
         String bv = line.substring(line.lastIndexOf("\"bvid\":\""), line.lastIndexOf("\",\"view\"")).replace("\"bvid\":\"", "");
-        String str = "AV:" + av + " BV:" + bv;
+        String str = "AV:av" + av + " BV:" + bv;
         System.out.println(str);
     }
 }
