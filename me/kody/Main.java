@@ -39,7 +39,7 @@ public class Main {
         String type = scanner.next();
         System.out.println("请输入AV号或者BV号!");
         String id = scanner.next();
-        String line = get(type, id);
+        String line = get(type, id.substring(0, 2).equalsIgnoreCase("AV") ? id.replace(id.substring(0, 2), "") : id);
         String av = line.substring(line.lastIndexOf("\"aid\":"), line.lastIndexOf(",\"bvid\"")).replace("\"aid\":", "");
         String bv = line.substring(line.lastIndexOf("\"bvid\":\""), line.lastIndexOf("\",\"view\"")).replace("\"bvid\":\"", "");
         String str = "AV:" + av + " BV:" + bv;
