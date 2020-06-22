@@ -1,5 +1,8 @@
 package me.kody;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -13,10 +16,11 @@ public class Main {
 
     /**
      * 获取目标网站信息
-     * @param type
-     * @param id
-     * @return
-     * @throws Exception
+     *
+     * @param type 类型
+     * @param id   号
+     * @return Json
+     * @throws Exception 异常处理
      */
     public static String get(String type, String id) throws Exception {
         StringBuilder result = new StringBuilder();
@@ -40,8 +44,9 @@ public class Main {
         System.out.println("请输入AV号或者BV号!");
         String id = scanner.next();
         String line = get(type, id.substring(0, 2).equalsIgnoreCase("AV") ? id.replace(id.substring(0, 2), "") : id);
-        String av = line.substring(line.lastIndexOf("\"aid\":"), line.lastIndexOf(",\"bvid\"")).replace("\"aid\":", "");
-        String bv = line.substring(line.lastIndexOf("\"bvid\":\""), line.lastIndexOf("\",\"view\"")).replace("\"bvid\":\"", "");
+        JsonObject jsonObject = new JsonParser().parse(line).getAsJsonObject();
+        int av = jsonObject.getAsJsonObject("data").get("aid").getAsInt();
+        String bv = jsonObject.getAsJsonObject("data").get("bvid").getAsString();
         String str = "AV:av" + av + " BV:" + bv;
         System.out.println(str);
     }
